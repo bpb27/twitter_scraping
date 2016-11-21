@@ -31,7 +31,7 @@ for go in range(i):
     tweets = api.statuses_lookup(id_batch)
     for tweet in tweets:
         all_data.append(dict(tweet._json))
-#
-# print("All done.")
-# with open('everything.json', 'w') as outfile:
-#     json.dump(all_data, outfile)
+
+print("All done.")
+with open('master_metadata_file.json', 'w') as outfile:
+    json.dump(all_data, outfile)

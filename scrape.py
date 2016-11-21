@@ -6,17 +6,18 @@ import json
 import datetime
 
 # Editable Parameters
-start = datetime.datetime(2015, 8, 31)  # year, month, day
+start = datetime.datetime(2016, 11, 15)  # year, month, day
 end = datetime.datetime(2016, 11, 20)  # year, month, day
 user = "realdonaldtrump"
 
+# you can also try Chrome() or Firefox()
 driver = webdriver.Safari()
+
 tweets = []
 id_selector = ".time a.tweet-timestamp"
 tweet_selector = "li.js-stream-item"
 
 def wrap_up():
-    driver.save_screenshot('screenshot.png')
     driver.close()
 
 def form_url(since, until):
@@ -37,13 +38,13 @@ def check_for_tweets(increment):
         if len(found_tweets) >= increment:
             increment = increment + 10
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            print("Scrolling down and waiting for more to load.")
+            print("Scrolling down and waiting for more to load")
             sleep(4)
             check_for_tweets(increment)
         else:
             tweets = found_tweets
     except NoSuchElementException:
-        print("didn't find shit for this day")
+        print("Didn't find shit for this day")
         tweets = []
 
 def increment_day(date, i):
@@ -57,7 +58,7 @@ def format_day(date):
 
 def check_page(date):
     if date == end:
-        print("We're all done here.")
+        print("We're all done here")
         return wrap_up()
     else:
         r1 = format_day(increment_day(date, 0))
@@ -82,11 +83,11 @@ def check_page(date):
                 except StaleElementReferenceException as e:
                     print("Lost element reference", tweet)
 
-            with open('auto_data.json') as json_data:
+            with open('all_ids.json') as json_data:
                 all_data += json.load(json_data)
                 data_to_write = unique_data = list(map(lambda x: json.loads(x), set(map(lambda x: json.dumps(x), all_data))))
                 print("Final collection count: {}".format(len(data_to_write)))
-            with open('auto_data.json', 'w') as outfile:
+            with open('all_ids.json', 'w') as outfile:
                 json.dump(data_to_write, outfile)
 
             check_page(increment_day(date, 1))

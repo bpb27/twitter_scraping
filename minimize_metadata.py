@@ -1,12 +1,11 @@
 import json
 
-starting_path = 'master_metadata_file.json'
-write_path = 'refined_master_file.json'
+# Editable parameters
 user = 'realDonaldTrump'
-results = []
+input_path = 'master_metadata_file.json'
+output_path = 'refined_master_file.json'
 
-def is_manual_retweet(str):
-    return str[0:2] == '"@' and str.split(' ')[0][-1] == ':'
+results = []
 
 def is_retweet(entry):
     return entry['user']['screen_name'] == user
@@ -17,7 +16,7 @@ def get_source(entry):
     else:
         return entry["source"]
 
-with open(starting_path) as json_data:
+with open(input_path) as json_data:
     data = json.load(json_data)
     for entry in data:
         t = {
@@ -35,5 +34,5 @@ with open(starting_path) as json_data:
         results.append(t)
 
 print("All done.")
-with open(write_path, 'w') as outfile:
+with open(output_path, 'w') as outfile:
     json.dump(results, outfile)
