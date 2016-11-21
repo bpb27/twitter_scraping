@@ -13,10 +13,12 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
   - if you don't have it, again, check YouTube for installation instructions
 - selenium (3.0.1)
   - `pip3 install selenium`
+- tweepy (3.5.0)
+  - `pip3 install tweepy`
 
 ## Running the scraper
 
-- open up scrape.py and edit the user, start, and end variables (and save the file)
+- open up `scrape.py` and edit the user, start, and end variables (and save the file)
 - run `python scrape.py`
 - you'll see a browser pop up and output in the terminal
 - do some fun other task until it finishes
@@ -34,8 +36,8 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 - first you'll need to get twitter API keys
   - sign up for a developer account here https://dev.twitter.com/
   - get your keys here: https://apps.twitter.com/
-- fill in your keys into the `sample_api_keys.json` file
-- change the name to `api_keys.json`
+- put your keys into the `sample_api_keys.json` file
+- change the file name to `api_keys.json`
 - run `python3 get_metadata.py`
 - this will get metadata for every tweet id in `all_ids.json` and output it to `master_metadata_file.json`
 
