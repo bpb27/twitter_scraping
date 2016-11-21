@@ -6,9 +6,9 @@ import json
 import datetime
 
 # Editable Parameters
+user = "realdonaldtrump"
 start = datetime.datetime(2016, 11, 15)  # year, month, day
 end = datetime.datetime(2016, 11, 20)  # year, month, day
-user = "realdonaldtrump"
 
 # you can also try Chrome() or Firefox()
 driver = webdriver.Safari()

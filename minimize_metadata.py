@@ -8,7 +8,7 @@ output_path = 'refined_master_file.json'
 results = []
 
 def is_retweet(entry):
-    return entry['user']['screen_name'] == user
+    return entry['user']['screen_name'] != user
 
 def get_source(entry):
     if '<' in entry["source"]:
@@ -28,7 +28,6 @@ with open(input_path) as json_data:
             "source": get_source(entry),
             "place": entry["place"],
             "id_str": entry["id_str"],
-            "manual_retweet": is_manual_retweet(entry["text"]),
             "is_retweet": is_retweet(entry)
         }
         results.append(t)
