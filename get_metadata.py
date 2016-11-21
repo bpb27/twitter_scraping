@@ -4,13 +4,11 @@ import math
 from tweepy import TweepError
 from time import sleep
 
-consumer_key = '98ribFB1JnMr7gHAd2AtawSLh'
-consumer_secret = '4Vd5dkZp2PiEZrYenwVyORtc9iGYBLtg7k9TqPVJFjADPurf3K'
-access_token = '773554088210534400-VsxhGK6ACMU3v0nvWhlWfzYbtJ8kgtV'
-access_token_secret = '2oaaMiY1FWpYiHNICvMhqOP1umXpLx0nGMziwy0cFquav'
+with open('api_keys.json') as f:
+    keys = json.load(f)
 
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
+auth = tweepy.OAuthHandler(keys['consumer_key'], keys['consumer_secret'])
+auth.set_access_token(keys['access_token'], keys['access_token_secret'])
 api = tweepy.API(auth)
 
 with open('all_ids.json') as f:
@@ -33,7 +31,7 @@ for go in range(i):
     tweets = api.statuses_lookup(id_batch)
     for tweet in tweets:
         all_data.append(dict(tweet._json))
-
-print("All done.")
-with open('everything.json', 'w') as outfile:
-    json.dump(all_data, outfile)
+#
+# print("All done.")
+# with open('everything.json', 'w') as outfile:
+#     json.dump(all_data, outfile)
