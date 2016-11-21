@@ -19,7 +19,7 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 ## Running the scraper
 
 - open up `scrape.py` and edit the user, start, and end variables (and save the file)
-- run `python scrape.py`
+- run `python3 scrape.py`
 - you'll see a browser pop up and output in the terminal
 - do some fun other task until it finishes
 - once it's done, it outputs all the tweet ids it found into `all_ids.json`
