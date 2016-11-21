@@ -1,0 +1,39 @@
+import json
+
+starting_path = 'master_metadata_file.json'
+write_path = 'refined_master_file.json'
+user = 'realDonaldTrump'
+results = []
+
+def is_manual_retweet(str):
+    return str[0:2] == '"@' and str.split(' ')[0][-1] == ':'
+
+def is_retweet(entry):
+    return entry['user']['screen_name'] == user
+
+def get_source(entry):
+    if '<' in entry["source"]:
+        return entry["source"].split('>')[1].split('<')[0]
+    else:
+        return entry["source"]
+
+with open(starting_path) as json_data:
+    data = json.load(json_data)
+    for entry in data:
+        t = {
+            "created_at": entry["created_at"],
+            "text": entry["text"],
+            "in_reply_to_screen_name": entry["in_reply_to_screen_name"],
+            "retweet_count": entry["retweet_count"],
+            "favorite_count": entry["favorite_count"],
+            "source": get_source(entry),
+            "place": entry["place"],
+            "id_str": entry["id_str"],
+            "manual_retweet": is_manual_retweet(entry["text"]),
+            "is_retweet": is_retweet(entry)
+        }
+        results.append(t)
+
+print("All done.")
+with open(write_path, 'w') as outfile:
+    json.dump(results, outfile)
