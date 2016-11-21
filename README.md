@@ -43,5 +43,6 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 
 ## Slim down your metadata
 - there's a lot of unnessary info in the metadata, so you can take this optional step to slim it down
+- open `minimize_metadata.py` and change the user
 - run `python3 minimize_metadata.py`
 - you'll now have a much smaller file with `refined_master_file.json`
