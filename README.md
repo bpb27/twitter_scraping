@@ -10,6 +10,7 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
   - if you don't have it, check YouTube for installation instructions
 - pip or pip3
   - to check, in your terminal, enter `pip` or `pip3`
+  - if you don't have it, again, check YouTube for installation instructions
 - selenium (3.0.1)
   - `pip3 install selenium`
 
