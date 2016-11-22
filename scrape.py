@@ -5,19 +5,22 @@ from time import sleep
 import json
 import datetime
 
-# Editable Parameters
+# Edit these three variables
 user = "realdonaldtrump"
-start = datetime.datetime(2016, 11, 15)  # year, month, day
-end = datetime.datetime(2016, 11, 20)  # year, month, day
+start = datetime.datetime(2012, 1, 1)  # year, month, day
+end = datetime.datetime(2012, 12, 31)  # year, month, day
+twitter_ids_filename = "all_ids.json"  # this file must exist with a list ([])
 
-# you can also try Chrome() or Firefox()
-driver = webdriver.Safari()
+# options are Chrome() Firefox() Safari()
+driver = webdriver.Firefox()
 
-tweets = []
+tweets = []     # global that temporarily holds DOM elements
+all_data = []   # global that holds all found ids
 id_selector = ".time a.tweet-timestamp"
 tweet_selector = "li.js-stream-item"
 
 def wrap_up():
+    print("We're all done here")
     driver.close()
 
 def form_url(since, until):
@@ -44,7 +47,7 @@ def check_for_tweets(increment):
         else:
             tweets = found_tweets
     except NoSuchElementException:
-        print("Didn't find shit for this day")
+        print("Dude didn't tweet shit today")
         tweets = []
 
 def increment_day(date, i):
@@ -57,21 +60,26 @@ def format_day(date):
     return '-'.join([year, month, day])
 
 def check_page(date):
+    global all_data
     if date == end:
-        print("We're all done here")
+        with open(twitter_ids_filename) as json_data:
+            print("Tweets found on this scrape: ", len(all_data))
+            all_data += json.load(json_data)
+            data_to_write = list(map(lambda x: json.loads(x), set(map(lambda x: json.dumps(x), all_data))))
+            print("Total collection count: ", len(data_to_write))
+        with open(twitter_ids_filename, 'w') as outfile:
+            json.dump(data_to_write, outfile)
         return wrap_up()
     else:
         r1 = format_day(increment_day(date, 0))
         r2 = format_day(increment_day(date, 1))
         url = form_url(r1, r2)
         print(url)
-
         print("Checking ", r1)
         sleep(4)
         driver.get(url)
         check_for_tweets(10)
         print("{} tweets found".format(len(tweets)))
-        all_data = []
 
         if not len(tweets):
             check_page(increment_day(date, 1))
@@ -82,14 +90,6 @@ def check_page(date):
                     all_data.append(id_str)
                 except StaleElementReferenceException as e:
                     print("Lost element reference", tweet)
-
-            with open('all_ids.json') as json_data:
-                all_data += json.load(json_data)
-                data_to_write = unique_data = list(map(lambda x: json.loads(x), set(map(lambda x: json.dumps(x), all_data))))
-                print("Final collection count: {}".format(len(data_to_write)))
-            with open('all_ids.json', 'w') as outfile:
-                json.dump(data_to_write, outfile)
-
             check_page(increment_day(date, 1))
 
 check_page(increment_day(start, 0))

@@ -1,7 +1,7 @@
 import json
 
 # Editable parameters
-user = 'realDonaldTrump'
+user = 'realdonaldtrump'
 input_path = 'master_metadata_file.json'
 output_path = 'refined_master_file.json'
 

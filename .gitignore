@@ -1,3 +1,6 @@
 master_metadata_file.json
 refined_master_file.json
 api_keys.json
+/data
+
+geckodriver.log

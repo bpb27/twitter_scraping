@@ -30,7 +30,7 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 - do you get a driver error when you try and run the script?
   - open `scrape.py` and change the driver to use Chrome() or Firefox()
     - if neither work, google the error (you probably need to install a new driver)
-    
+
 ## Getting the metadata
 
 - first you'll need to get twitter API keys
@@ -46,3 +46,7 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 - open `minimize_metadata.py` and change the user
 - run `python3 minimize_metadata.py`
 - you'll now have a much smaller file with `refined_master_file.json`
+
+## Running the scraper for a new user
+- be sure to clear out the `all_ids.json` file, and put an empty list in there `[]`
+- be sure to edit the username in `scrape.py` and `minimize_metadata.py`
