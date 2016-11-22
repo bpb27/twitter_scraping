@@ -23,6 +23,8 @@ Twitter makes it hard to get all of a user's tweets (assuming they have more tha
 - you'll see a browser pop up and output in the terminal
 - do some fun other task until it finishes
 - once it's done, it outputs all the tweet ids it found into `all_ids.json`
+- every time you run the scraper with different dates, it will add the new ids to the same file
+  - it automatically removes duplicates so don't worry about small date overlaps
 
 ## Troubleshooting the scraper
 
