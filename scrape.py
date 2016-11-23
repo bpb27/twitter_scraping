@@ -8,8 +8,8 @@ import datetime
 
 # edit these three variables
 user = 'seanhannity'
-start = datetime.datetime(2010, 1, 1)  # year, month, day
-end = datetime.datetime(2010, 12, 1)  # year, month, day
+start = datetime.datetime(2009, 5, 1)  # year, month, day
+end = datetime.datetime(2009, 12, 31)  # year, month, day
 twitter_ids_filename = 'all_ids.json'  # this file must exist with a list ([])
 driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
 
@@ -41,6 +41,7 @@ for day in range(days):
     print(url)
     print(d1)
     driver.get(url)
+    sleep(2)
 
     try:
         found_tweets = driver.find_elements_by_css_selector(tweet_selector)
@@ -70,7 +71,7 @@ for day in range(days):
 
 with open(twitter_ids_filename) as f:
     all_ids = ids + json.load(f)
-    data_to_write = list(map(lambda x: json.loads(x), set(map(lambda x: json.dumps(x), all_ids))))
+    data_to_write = list(set(all_ids))
     print('tweets found on this scrape: ', len(ids))
     print('total tweet count: ', len(data_to_write))
 
