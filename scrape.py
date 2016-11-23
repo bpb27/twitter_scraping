@@ -7,14 +7,15 @@ import datetime
 
 
 # edit these three variables
-user = 'seanhannity'
-start = datetime.datetime(2009, 5, 1)  # year, month, day
-end = datetime.datetime(2009, 12, 31)  # year, month, day
+user = 'realdonaldtrump'
+start = datetime.datetime(2012, 1, 1)  # year, month, day
+end = datetime.datetime(2012, 12, 31)  # year, month, day
 twitter_ids_filename = 'all_ids.json'  # this file must exist with a list ([])
+delay = 1  # time to wait on each page load before reading the page
 driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
 
 
-# don't mess with this stuff unless you know what you're doing
+# don't mess with this stuff
 days = (end - start).days + 1
 id_selector = '.time a.tweet-timestamp'
 tweet_selector = 'li.js-stream-item'
@@ -41,7 +42,7 @@ for day in range(days):
     print(url)
     print(d1)
     driver.get(url)
-    sleep(2)
+    sleep(delay)
 
     try:
         found_tweets = driver.find_elements_by_css_selector(tweet_selector)
@@ -50,7 +51,7 @@ for day in range(days):
         while len(found_tweets) >= increment:
             print('scrolling down to load more tweets')
             driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
-            sleep(3)
+            sleep(delay)
             found_tweets = driver.find_elements_by_css_selector(tweet_selector)
             increment += 10
 
