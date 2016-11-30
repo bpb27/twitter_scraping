@@ -7,9 +7,9 @@ import datetime
 
 
 # edit these three variables
-user = 'realdonaldtrump'
-start = datetime.datetime(2012, 1, 1)  # year, month, day
-end = datetime.datetime(2012, 12, 31)  # year, month, day
+user = 'SheriffClarke'
+start = datetime.datetime(2010, 3, 1)  # year, month, day
+end = datetime.datetime(2014, 12, 23)  # year, month, day
 twitter_ids_filename = 'all_ids.json'  # this file must exist with a list ([])
 delay = 1  # time to wait on each page load before reading the page
 driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
@@ -19,6 +19,7 @@ driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
 days = (end - start).days + 1
 id_selector = '.time a.tweet-timestamp'
 tweet_selector = 'li.js-stream-item'
+user = user.lower()
 ids = []
 
 def format_day(date):

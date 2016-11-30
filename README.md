@@ -1,6 +1,6 @@
 ## Twitter Scraper
 
-Twitter makes it hard to get all of a user's tweets (assuming they have more than 3200). This is a way to get around that using Python, Selenium, and Tweepy. 
+Twitter makes it hard to get all of a user's tweets (assuming they have more than 3200). This is a way to get around that using Python, Selenium, and Tweepy.
 
 Essentially, we will use Selenium to open up a browser and automatically visit Twitter's search page, searching for a single user's tweets on a single day. If we want all tweets from 2015, we will check all 365 days / pages. This would be a nightmare to do manually, so the `scrape.py` script does it all for you - all you have to do is input a date range and a twitter user handle, and wait for it to finish.
 
@@ -45,14 +45,9 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 - put your keys into the `sample_api_keys.json` file
 - change the file name to `api_keys.json`
 - run `python3 get_metadata.py`
-- this will get metadata for every tweet id in `all_ids.json` and output it to `master_metadata_file.json`
-
-## Slim down your metadata
-- there's a lot of unnessary info in the metadata, so you can take this optional step to slim it down
-- open `minimize_metadata.py` and change the user
-- run `python3 minimize_metadata.py`
-- you'll now have a much smaller file with `refined_master_file.json`
-
-## Running the scraper for a new user
-- be sure to clear out the `all_ids.json` file, and put an empty list in there `[]`
-- be sure to edit the username in `scrape.py` and `minimize_metadata.py`
+- this will get metadata for every tweet id in `all_ids.json`
+- it will create 4 files
+  - `username.json` (master file with all metadata)
+  - `username.zip` (a zipped file of the master file with all metadata)
+  - `username_short.json` (smaller master file with relevant metadata fields)
+  - `username.csv` (csv version of the smaller master file)
