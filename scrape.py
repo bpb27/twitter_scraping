@@ -8,14 +8,16 @@ import datetime
 
 # edit these three variables
 user = 'SheriffClarke'
-start = datetime.datetime(2010, 3, 1)  # year, month, day
+start = datetime.datetime(2014, 12, 20)  # year, month, day
 end = datetime.datetime(2014, 12, 23)  # year, month, day
-twitter_ids_filename = 'all_ids.json'  # this file must exist with a list ([])
+
+# only edit these if you're having problems
 delay = 1  # time to wait on each page load before reading the page
 driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
 
 
 # don't mess with this stuff
+twitter_ids_filename = 'all_ids.json'
 days = (end - start).days + 1
 id_selector = '.time a.tweet-timestamp'
 tweet_selector = 'li.js-stream-item'
@@ -71,11 +73,18 @@ for day in range(days):
     start = increment_day(start, 1)
 
 
-with open(twitter_ids_filename) as f:
-    all_ids = ids + json.load(f)
-    data_to_write = list(set(all_ids))
-    print('tweets found on this scrape: ', len(ids))
-    print('total tweet count: ', len(data_to_write))
+try:
+    with open(twitter_ids_filename) as f:
+        all_ids = ids + json.load(f)
+        data_to_write = list(set(all_ids))
+        print('tweets found on this scrape: ', len(ids))
+        print('total tweet count: ', len(data_to_write))
+except FileNotFoundError:
+    with open(twitter_ids_filename, 'w') as f:
+        all_ids = ids
+        data_to_write = list(set(all_ids))
+        print('tweets found on this scrape: ', len(ids))
+        print('total tweet count: ', len(data_to_write))
 
 with open(twitter_ids_filename, 'w') as outfile:
     json.dump(data_to_write, outfile)
