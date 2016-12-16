@@ -9,7 +9,7 @@ from tweepy import TweepError
 from time import sleep
 
 # CHANGE THIS TO THE USER YOU WANT
-user = 'SheriffClarke'
+user = 'realdonaldtrump'
 
 with open('api_keys.json') as f:
     keys = json.load(f)
@@ -56,7 +56,7 @@ zf.close()
 results = []
 
 def is_retweet(entry):
-    return entry['user']['screen_name'].lower() != user.lower()
+    return 'retweeted_status' in entry.keys()
 
 def get_source(entry):
     if '<' in entry["source"]:

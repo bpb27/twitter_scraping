@@ -7,9 +7,9 @@ import datetime
 
 
 # edit these three variables
-user = 'SheriffClarke'
-start = datetime.datetime(2014, 12, 20)  # year, month, day
-end = datetime.datetime(2014, 12, 23)  # year, month, day
+user = 'realdonaldtrump'
+start = datetime.datetime(2010, 1, 1)  # year, month, day
+end = datetime.datetime(2016, 12, 7)  # year, month, day
 
 # only edit these if you're having problems
 delay = 1  # time to wait on each page load before reading the page
@@ -58,7 +58,7 @@ for day in range(days):
             found_tweets = driver.find_elements_by_css_selector(tweet_selector)
             increment += 10
 
-        print('{} tweets found'.format(len(found_tweets)))
+        print('{} tweets found, {} total'.format(len(found_tweets), len(ids)))
 
         for tweet in found_tweets:
             try:
