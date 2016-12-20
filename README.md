@@ -9,6 +9,7 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 ## Requirements
 
 - basic knowledge on how to use a terminal
+- Safari 10+ with 'Allow Remote Automation' option enabled in Safari's Develop menu to control Safari via WebDriver.
 - python3
   - to check, in your terminal, enter `python3`
   - if you don't have it, check YouTube for installation instructions
