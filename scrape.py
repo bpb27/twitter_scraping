@@ -9,7 +9,8 @@ import datetime
 # edit these three variables
 user = 'realdonaldtrump'
 start = datetime.datetime(2010, 1, 1)  # year, month, day
-end = datetime.datetime(2016, 12, 7)  # year, month, day
+end = datetime.datetime(2017, 3, 1)  # year, month, day
+dateinc = 50
 
 # only edit these if you're having problems
 delay = 1  # time to wait on each page load before reading the page
@@ -38,9 +39,14 @@ def form_url(since, until):
 def increment_day(date, i):
     return date + datetime.timedelta(days=i)
 
-for day in range(days):
+day = 0
+while day < days:
+    if(days-day>dateinc):
+        inc = dateinc
+    else:
+        inc = days-day
     d1 = format_day(increment_day(start, 0))
-    d2 = format_day(increment_day(start, 1))
+    d2 = format_day(increment_day(start, inc))
     url = form_url(d1, d2)
     print(url)
     print(d1)
@@ -70,7 +76,8 @@ for day in range(days):
     except NoSuchElementException:
         print('no tweets on this day')
 
-    start = increment_day(start, 1)
+    start = increment_day(start, inc)
+    day=day+inc
 
 
 try:
