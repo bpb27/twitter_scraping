@@ -1,3 +1,6 @@
+
+This is a fork from the original repo which allowed for the download of a single user. This script will read the content of the "names.json" file, currently situated one folder above to retrieve users' tweets.
+
 ## Twitter Scraper
 
 Twitter makes it hard to get all of a user's tweets (assuming they have more than 3200). This is a way to get around that using Python, Selenium, and Tweepy.
@@ -16,6 +19,9 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 - pip or pip3
   - to check, in your terminal, enter `pip` or `pip3`
   - if you don't have it, again, check YouTube for installation instructions
+-Create and activate a python3 virtual environment:
+  -`virtualenv venv -p python3`
+  -`source venv/bin/activate`
 - selenium (3.0.1)
   - `pip3 install selenium`
 - tweepy (3.5.0)
@@ -23,7 +29,6 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 
 ## Running the scraper
 
-- open up `scrape.py` and edit the user, start, and end variables (and save the file)
 - run `python3 scrape.py`
 - you'll see a browser pop up and output in the terminal
 - do some fun other task until it finishes

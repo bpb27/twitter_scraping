@@ -1,5 +1,10 @@
 api_keys.json
 geckodriver.log
 /data
+/selenium
+/lib
+/bin
+/include
+
 
 
