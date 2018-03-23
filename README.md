@@ -23,8 +23,11 @@ The `scrape.py` script collects tweet ids. If you know a tweet's id number, you 
 
 ## Running the scraper
 
-- open up `scrape.py` and edit the user, start, and end variables (and save the file)
-- run `python3 scrape.py`
+- <del>~~open up `scrape.py` and edit the user, start, and end variables (and save the file)~~</del>
+- run `python3 scrape.py` and add the arguments you need
+    - `-u` followed by the username
+    - `--since` followed by a string of the date e.g (2017-01-01) otherwise it uses the default value declared  in start
+    - `--until` followed by a string of the date e.g (2018-01-01) otherwise it uses the default value declared  in end 
 - you'll see a browser pop up and output in the terminal
 - do some fun other task until it finishes
 - once it's done, it outputs all the tweet ids it found into `all_ids.json`
