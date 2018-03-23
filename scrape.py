@@ -4,16 +4,26 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from time import sleep
 import json
 import datetime
+import argparse
 
+parser = argparse.ArgumentParser(prog="scrape.py", usage="python3 %(prog)s [options]", description="scrape.py - Twitter Scraping Tool")
+parser.add_argument("-u", help="Scrape this user's Tweets")
+parser.add_argument("--since", help="Get Tweets after this date (Example: 2010-01-01).")
+parser.add_argument("--until", help="Get Tweets before this date (Example: 2018-12-07.")
+args = parser.parse_args()
 
-# edit these three variables
-user = 'realdonaldtrump'
-start = datetime.datetime(2010, 1, 1)  # year, month, day
-end = datetime.datetime(2016, 12, 7)  # year, month, day
+if args.since is not None:
+    start = datetime.datetime(int(args.since[:4]), int(args.since[5:7]), int(args.since[8:10]))
+else:
+    start = datetime.datetime(2010, 1, 1)  #year, month, day; this is the fallback date; only used when there is no argument `--since`
+if args.until is not None:
+    end = datetime.datetime(int(args.until[:4]), int(args.until[5:7]), int(args.until[8:10]))
+else:
+    end = datetime.datetime.now()
 
 # only edit these if you're having problems
 delay = 1  # time to wait on each page load before reading the page
-driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
+driver = webdriver.Firefox()  # options are Chrome() Firefox() Safari()
 
 
 # don't mess with this stuff
@@ -21,7 +31,6 @@ twitter_ids_filename = 'all_ids.json'
 days = (end - start).days + 1
 id_selector = '.time a.tweet-timestamp'
 tweet_selector = 'li.js-stream-item'
-user = user.lower()
 ids = []
 
 def format_day(date):
@@ -31,8 +40,10 @@ def format_day(date):
     return '-'.join([year, month, day])
 
 def form_url(since, until):
-    p1 = 'https://twitter.com/search?f=tweets&vertical=default&q=from%3A'
-    p2 =  user + '%20since%3A' + since + '%20until%3A' + until + 'include%3Aretweets&src=typd'
+    p1 = 'https://twitter.com/search?f=tweets&vertical=default&q='
+    if args.u is not None:
+        p1 += "from%3A{0.u}".format(args)
+    p2 ='%20since%3A' + since + '%20until%3A' + until + 'include%3Aretweets&src=typd'
     return p1 + p2
 
 def increment_day(date, i):
