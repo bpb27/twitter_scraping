@@ -19,8 +19,8 @@ driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
 # don't mess with this stuff
 twitter_ids_filename = 'all_ids.json'
 days = (end - start).days + 1
-id_selector = '.time a.tweet-timestamp'
-tweet_selector = 'li.js-stream-item'
+id_selector = "div > div > :nth-child(2) > :nth-child(2) > :nth-child(1) > div > div > :nth-child(1) > a"
+tweet_selector = 'article'
 user = user.lower()
 ids = []
 
