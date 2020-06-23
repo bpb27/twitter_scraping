@@ -9,7 +9,7 @@ from tweepy import TweepError
 from time import sleep
 
 # CHANGE THIS TO THE USER YOU WANT
-user = 'alferdez'
+user = 'realdonaldtrump'
 
 with open('api_keys.json') as f:
     keys = json.load(f)
