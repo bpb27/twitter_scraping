@@ -21,25 +21,28 @@ user = user.lower()
 output_file = '{}.json'.format(user)
 output_file_short = '{}_short.json'.format(user)
 compression = zipfile.ZIP_DEFLATED
+from itertools import chain
 
 with open('all_ids.json') as f:
     ids = json.load(f)
+    tw_id = list(chain.from_iterable(ids[user]['tw_id']))
 
-print('total ids: {}'.format(len(ids)))
+print('total ids: {}'.format(len(tw_id)))
 
 all_data = []
 start = 0
 end = 100
-limit = len(ids)
+limit = len(tw_id)
 i = math.ceil(limit / 100)
 
 for go in range(i):
     print('currently getting {} - {}'.format(start, end))
     sleep(6)  # needed to prevent hitting API rate limit
-    id_batch = ids[start:end]
+    id_batch = tw_id[start:end]
     start += 100
     end += 100
     tweets = api.statuses_lookup(id_batch)
+    print(str(id_batch) + 'este es el id_batch')
     for tweet in tweets:
         all_data.append(dict(tweet._json))
 
@@ -90,4 +93,5 @@ with open(output_file_short) as master_file:
     f = csv.writer(open('{}.csv'.format(user), 'w'))
     f.writerow(fields)
     for x in data:
-        f.writerow([x["favorite_count"], x["source"], x["text"], x["in_reply_to_screen_name"], x["is_retweet"], x["created_at"], x["retweet_count"], x["id_str"]])
+        f.writerow([x["favorite_count"], x["source"], x["text"], x["in_reply_to_screen_name"], x["is_retweet"],
+                    x["created_at"], x["retweet_count"], x["id_str"]])
