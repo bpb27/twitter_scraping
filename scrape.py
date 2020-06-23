@@ -8,7 +8,7 @@ import csv
 
 
 # edit these three variables
-user = 'alferdez'
+user = 'realdonaldtrump'
 start = datetime.datetime(2014, 4, 2)  # year, month, day
 end = datetime.datetime(2020, 6, 1)  # year, month, day
 
