@@ -4,23 +4,27 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 from time import sleep
 import json
 import datetime
+import csv
 
 
 # edit these three variables
-user = 'realdonaldtrump'
-start = datetime.datetime(2010, 1, 1)  # year, month, day
-end = datetime.datetime(2016, 12, 7)  # year, month, day
+user = 'alferdez'
+start = datetime.datetime(2014, 4, 2)  # year, month, day
+end = datetime.datetime(2020, 6, 1)  # year, month, day
 
 # only edit these if you're having problems
-delay = 1  # time to wait on each page load before reading the page
-driver = webdriver.Safari()  # options are Chrome() Firefox() Safari()
+delay = 4  # time to wait on each page load before reading the page
+driver = webdriver.Chrome()  # options are Chrome() Firefox() Safari()
 
 
 # don't mess with this stuff
 twitter_ids_filename = 'all_ids.json'
 days = (end - start).days + 1
-id_selector = '.time a.tweet-timestamp'
-tweet_selector = 'li.js-stream-item'
+id_selector = 'article > div > div.css-1dbjc4n.r-18u37iz > div.css-1dbjc4n.r-1iusvr4.r-16y2uox.r-1777fci.r-1mi0q7o ' \
+                 '> div:nth-child(1) > div > div > div.css-1dbjc4n.r-1d09ksm.r-18u37iz.r-1wbh5a2 > a'
+
+tweet_selector = 'div > div > div > main > div > div > div > div > div > div > div > div > section > div > div > div > div > div > div > div > div > article'
+
 user = user.lower()
 ids = []
 
@@ -62,8 +66,10 @@ for day in range(days):
 
         for tweet in found_tweets:
             try:
-                id = tweet.find_element_by_css_selector(id_selector).get_attribute('href').split('/')[-1]
+                id_user = tweet.find_element_by_css_selector(id_selector).get_attribute('href')
+                id = [id_user.split('/')[-1] for x in id_user if id_user.split('/')[-3] == user]
                 ids.append(id)
+                print(id_user)
             except StaleElementReferenceException as e:
                 print('lost element reference', tweet)
 
@@ -72,11 +78,18 @@ for day in range(days):
 
     start = increment_day(start, 1)
 
+ids = [sublist[:1] for sublist in ids]
+json_results = {
+    user:{
+        'tw_id':ids
+    }
+}
 
+print(json_results)
 try:
     with open(twitter_ids_filename) as f:
-        all_ids = ids + json.load(f)
-        data_to_write = list(set(all_ids))
+        all_ids = json_results
+        data_to_write = all_ids
         print('tweets found on this scrape: ', len(ids))
         print('total tweet count: ', len(data_to_write))
 except FileNotFoundError:
@@ -88,6 +101,8 @@ except FileNotFoundError:
 
 with open(twitter_ids_filename, 'w') as outfile:
     json.dump(data_to_write, outfile)
+
+print(ids)
 
 print('all done here')
 driver.close()
